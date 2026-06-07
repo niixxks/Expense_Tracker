@@ -3,34 +3,83 @@ import axios from "axios";
 
 function Expenses() {
   const [expenses, setExpenses] = useState([]);
+  const [search, setSearch] = useState("");
+  const [category, setCategory] = useState("");
 
   const fetchExpenses = async () => {
-    const response = await axios.get(
-      "http://localhost:5000/api/expenses"
-    );
+    try {
+      const response = await axios.get(
+        "http://localhost:5000/api/expenses"
+      );
 
-    setExpenses(response.data);
+      setExpenses(response.data);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const handleDelete = async (id) => {
-  try {
-    await axios.delete(
-      `http://localhost:5000/api/expenses/${id}`
-    );
+    try {
+      await axios.delete(
+        `http://localhost:5000/api/expenses/${id}`
+      );
 
-    fetchExpenses();
-  } catch (error) {
-    console.error(error);
-  }
-};
+      fetchExpenses();
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   useEffect(() => {
     fetchExpenses();
   }, []);
 
+  const filteredExpenses = expenses.filter(
+    (expense) => {
+      const matchSearch =
+        expense.title
+          .toLowerCase()
+          .includes(search.toLowerCase());
+
+      const matchCategory =
+        category === "" ||
+        expense.category === category;
+
+      return (
+        matchSearch &&
+        matchCategory
+      );
+    }
+  );
+
   return (
     <div className="page-container">
       <h1>Expense List</h1>
+
+      <div className="filter-container">
+        <input
+          type="text"
+          placeholder="Search Expense..."
+          value={search}
+          onChange={(e) =>
+            setSearch(e.target.value)
+          }
+        />
+
+        <select
+          value={category}
+          onChange={(e) =>
+            setCategory(e.target.value)
+          }
+        >
+          <option value="">All Categories</option>
+          <option value="Food">Food</option>
+          <option value="Travel">Travel</option>
+          <option value="Shopping">Shopping</option>
+          <option value="Bills">Bills</option>
+          <option value="Health">Health</option>
+        </select>
+      </div>
 
       <table>
         <thead>
@@ -45,13 +94,14 @@ function Expenses() {
         </thead>
 
         <tbody>
-          {expenses.map((expense) => (
+          {filteredExpenses.map((expense) => (
             <tr key={expense.id}>
               <td>{expense.title}</td>
               <td>₹{expense.amount}</td>
               <td>{expense.category}</td>
               <td>{expense.date}</td>
               <td>{expense.notes}</td>
+
               <td>
                 <button
                   className="delete-btn"
