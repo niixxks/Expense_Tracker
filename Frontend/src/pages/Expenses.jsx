@@ -100,27 +100,35 @@ function Expenses() {
         </thead>
 
         <tbody>
-          {filteredExpenses.map((expense) => (
-            <tr key={expense.id}>
-              <td>{expense.title}</td>
-              <td>₹{expense.amount}</td>
-              <td>{expense.category}</td>
-              <td>{expense.date}</td>
-              <td>{expense.notes}</td>
+  {filteredExpenses.length === 0 ? (
+    <tr>
+      <td colSpan="6">
+        No Expenses Found
+      </td>
+    </tr>
+  ) : (
+    filteredExpenses.map((expense) => (
+      <tr key={expense.id}>
+        <td>{expense.title}</td>
+        <td>₹{expense.amount}</td>
+        <td>{expense.category}</td>
+        <td>{expense.date}</td>
+        <td>{expense.notes}</td>
 
-              <td>
-                <button
-                  className="delete-btn"
-                  onClick={() =>
-                    handleDelete(expense.id)
-                  }
-                >
-                  Delete
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
+        <td>
+          <button
+            className="delete-btn"
+            onClick={() =>
+              handleDelete(expense.id)
+            }
+          >
+            Delete
+          </button>
+        </td>
+      </tr>
+    ))
+  )}
+</tbody>
       </table>
     </div>
   );
