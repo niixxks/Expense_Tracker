@@ -8,7 +8,6 @@ const filePath = path.join(
 
 const getExpenses = (req, res) => {
   const data = fs.readFileSync(filePath);
-
   const expenses = JSON.parse(data);
 
   res.json(expenses);
@@ -19,7 +18,6 @@ const addExpense = (req, res) => {
     req.body;
 
   const data = fs.readFileSync(filePath);
-
   const expenses = JSON.parse(data);
 
   const newExpense = {
@@ -41,7 +39,28 @@ const addExpense = (req, res) => {
   res.status(201).json(newExpense);
 };
 
+const deleteExpense = (req, res) => {
+  const id = Number(req.params.id);
+
+  const data = fs.readFileSync(filePath);
+  let expenses = JSON.parse(data);
+
+  expenses = expenses.filter(
+    (expense) => expense.id !== id
+  );
+
+  fs.writeFileSync(
+    filePath,
+    JSON.stringify(expenses, null, 2)
+  );
+
+  res.json({
+    message: "Expense deleted successfully",
+  });
+};
+
 module.exports = {
   getExpenses,
   addExpense,
+  deleteExpense,
 };

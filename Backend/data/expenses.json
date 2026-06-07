@@ -1,1 +1,18 @@
-[]
+[
+  {
+    "id": 1780762810161,
+    "title": "shoes",
+    "amount": "5000",
+    "category": "Shopping",
+    "date": "2026-06-26",
+    "notes": "buy for my self"
+  },
+  {
+    "id": 1780822113329,
+    "title": "nikk",
+    "amount": "3000",
+    "category": "Travel",
+    "date": "2026-01-20",
+    "notes": "jji"
+  }
+]
