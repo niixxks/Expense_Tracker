@@ -19,16 +19,22 @@ function Expenses() {
   };
 
   const handleDelete = async (id) => {
-    try {
-      await axios.delete(
-        `http://localhost:5000/api/expenses/${id}`
-      );
+  const confirmDelete = window.confirm(
+    "Are you sure you want to delete this expense?"
+  );
 
-      fetchExpenses();
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  if (!confirmDelete) return;
+
+  try {
+    await axios.delete(
+      `http://localhost:5000/api/expenses/${id}`
+    );
+
+    fetchExpenses();
+  } catch (error) {
+    console.error(error);
+  }
+};
 
   useEffect(() => {
     fetchExpenses();

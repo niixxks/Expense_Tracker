@@ -29,6 +29,10 @@ function Dashboard() {
 
   const totalTransactions = expenses.length;
 
+  const latestExpenses = [...expenses]
+    .reverse()
+    .slice(0, 5);
+
   return (
     <>
       <div className="cards">
@@ -44,7 +48,7 @@ function Dashboard() {
       </div>
 
       <div className="recent-expenses">
-        <h2>Recent Expenses</h2>
+        <h2>Recent Transactions</h2>
 
         <table>
           <thead>
@@ -56,7 +60,7 @@ function Dashboard() {
           </thead>
 
           <tbody>
-            {expenses.slice(-5).reverse().map((expense) => (
+            {latestExpenses.map((expense) => (
               <tr key={expense.id}>
                 <td>{expense.title}</td>
                 <td>₹{expense.amount}</td>
