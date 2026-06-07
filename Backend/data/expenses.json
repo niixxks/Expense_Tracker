@@ -1,18 +1,26 @@
 [
   {
-    "id": 1780762810161,
-    "title": "shoes",
+    "id": 1780826889530,
+    "title": "Nike Shoes",
     "amount": "5000",
     "category": "Shopping",
-    "date": "2026-06-26",
-    "notes": "buy for my self"
+    "date": "2026-05-26",
+    "notes": "buyqas"
   },
   {
-    "id": 1780822113329,
-    "title": "nikk",
-    "amount": "3000",
+    "id": 1780826937698,
+    "title": "trip to leh",
+    "amount": "5000",
     "category": "Travel",
-    "date": "2026-01-20",
-    "notes": "jji"
+    "date": "2026-04-27",
+    "notes": "niii"
+  },
+  {
+    "id": 1780826957537,
+    "title": "ff",
+    "amount": "159000",
+    "category": "Bills",
+    "date": "2009-03-31",
+    "notes": "ed"
   }
 ]
