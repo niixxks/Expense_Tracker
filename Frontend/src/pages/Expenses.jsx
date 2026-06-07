@@ -5,16 +5,24 @@ function Expenses() {
   const [expenses, setExpenses] = useState([]);
 
   const fetchExpenses = async () => {
-    try {
-      const response = await axios.get(
-        "http://localhost:5000/api/expenses"
-      );
+    const response = await axios.get(
+      "http://localhost:5000/api/expenses"
+    );
 
-      setExpenses(response.data);
-    } catch (error) {
-      console.error(error);
-    }
+    setExpenses(response.data);
   };
+
+  const handleDelete = async (id) => {
+  try {
+    await axios.delete(
+      `http://localhost:5000/api/expenses/${id}`
+    );
+
+    fetchExpenses();
+  } catch (error) {
+    console.error(error);
+  }
+};
 
   useEffect(() => {
     fetchExpenses();
@@ -32,6 +40,7 @@ function Expenses() {
             <th>Category</th>
             <th>Date</th>
             <th>Notes</th>
+            <th>Action</th>
           </tr>
         </thead>
 
@@ -43,6 +52,16 @@ function Expenses() {
               <td>{expense.category}</td>
               <td>{expense.date}</td>
               <td>{expense.notes}</td>
+              <td>
+                <button
+                  className="delete-btn"
+                  onClick={() =>
+                    handleDelete(expense.id)
+                  }
+                >
+                  Delete
+                </button>
+              </td>
             </tr>
           ))}
         </tbody>
